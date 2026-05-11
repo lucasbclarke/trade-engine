@@ -5,9 +5,9 @@ This README should be updated progressively throughout development and used as e
 
 | Field | Information |
 |---|---|
-| Student Name | |
-| Class | |
-| Teacher | |
+| Student Name | Lucas Clarke |
+| Class | 11 Software Engineering |
+| Teacher | A. Pike |
 | Due Date | |
 
 ---
