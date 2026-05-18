@@ -8,7 +8,7 @@ This README should be updated progressively throughout development and used as e
 | Student Name | Lucas Clarke |
 | Class | 11 Software Engineering |
 | Teacher | A. Pike |
-| Due Date | |
+| Due Date | 10.6.26 |
 
 ---
 
