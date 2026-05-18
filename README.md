@@ -15,14 +15,14 @@ This README should be updated progressively throughout development and used as e
 # Project Overview
 
 ## Project Title
-> Enter the name of your software project.
+Trade Engine
 
 ---
 
 ## Problem Definition
 
 ### What problem or need does this software address?
-Describe the real-world problem, challenge or opportunity your project is solving.
+Stock prices can be unpredictable, but Trade Engine collates data to assist in observing historical trends.
 
 ---
 
@@ -30,16 +30,13 @@ Describe the real-world problem, challenge or opportunity your project is solvin
 Who is this software designed for?
 
 Examples:
-- Students
-- Teachers
-- Gamers
-- Small businesses
-- General users
+- Commerce and Economics Students interested in observing market trends.
 
 ---
 
 ## Purpose of the Program
 Explain what the program is intended to do.
+To predict fictional market trends, and subsequently when to buy, sell or hold stocks.
 
 ---
 
@@ -51,7 +48,7 @@ Briefly explain how your project followed these stages:
 
 | SDLC Stage | Notes |
 |---|---|
-| Problem Identification | |
+| Problem Identification | For economic and comerce students, who want to understand market trends, Trade Engine is a simple utility that presents historical data in a readable manner. |
 | Requirements Specification | |
 | Design | |
 | Development | |
