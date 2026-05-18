@@ -1,4 +1,5 @@
-Building a Mock Trading Framework is a fantastic way to use OOP because it relies on "decoupling." You want the part of the code that decides what to do to be completely separate from the part that executes the trade.
+Building a Mock Trading Framework is a fantastic way to use OOP because it relies on "decoupling."
+You want the part of the code that decides what to do to be completely separate from the part that executes the trade.
 
 This project is essentially an Event-Driven Engine.
 
