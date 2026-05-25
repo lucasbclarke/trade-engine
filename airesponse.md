@@ -32,7 +32,7 @@ It holds a list of Strategy objects and a Portfolio object.
 It loops through your mock price data and "ticks" the strategies.
 
 4. The Order (The Data Carrier)
-A simple class or namedtuple that represents a request to buy or sell.
+A simple class or named tuple that represents a request to buy or sell.
 
 Suggested Class Structure
 Here is how you might visualize the relationship using a simplified hierarchy:
