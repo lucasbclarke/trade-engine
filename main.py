@@ -3,12 +3,15 @@ import sys
 class Portfolio:
 
     def buy(self, stock, amount, stockList):
-        print(f"purchased {amount} stock Synapse Therapeutics")
+        print(f"purchased {amount} stock")
         found = False
         
         for stocks in stockList:
             if stock in stocks:
                 print(f"{stock} is in stocklist")
+                stocks[1] = int(stocks[1]) + int(amount)
+                print(f"stock amount is now {stocks[1]}")
+
                 # update stocklist with purchased amount
                 found = True
                 break
@@ -17,59 +20,23 @@ class Portfolio:
             stockList.append([stock, amount])
 
 
-        #match stock:
-        #    case "SNPS":
-        #        print(f"purchased {amount} stock Synapse Therapeutics")
-        #        found = False
-        #        for stocks in stockList:
-        #            if stock in stocks:
-        #                print("SNPS is in stocklist")
-        #                # update stocklist with purchased amount
-        #                found = True
-        #                break
-
-        #        if not found:
-        #                print("SNPS is not in stocklist")
-        #                stockList.append(["SNPS"])
-
-
-        #    case "HLIX":                   
-        #        print(f"purchased {amount} stock Helix Logistics")
-        #    case "VNDG":                   
-        #        print(f"purchased {amount} stock Vanguard Defense Group")
-        #    case "AEGS":                   
-        #        print(f"purchased {amount} stock Aegis Tactical Systems")
-        #    case "VCTR":                   
-        #        print(f"purchased {amount} stock Vector Freight")
-        #    case "AVEN":                   
-        #        print(f"purchased {amount} stock Aventine Global Syndicate")
-        #    case _:
-        #        print("not valid company")
-
-
-    def sell(self, stock, amount):
-        match stock:
-            case "SNPS":
-                print(f"purchased {amount} stock Synapse Therapeutics")
-            case "HLIX":                   
-                print(f"purchased {amount} stock Helix Logistics")
-            case "VNDG":                   
-                print(f"purchased {amount} stock Vanguard Defense Group")
-            case "AEGS":                   
-                print(f"purchased {amount} stock Aegis Tactical Systems")
-            case "VCTR":                   
-                print(f"purchased {amount} stock Vector Freight")
-            case "AVEN":                   
-                print(f"purchased {amount} stock Aventine Global Syndicate")
-            case _:
-                print("not valid company")
+    def sell(self, stock, quantity, stockList):
+        print(f"sold {quantity} stock")
+        found = False
+        
+        for stocks in stockList:
+            if stock in stocks:
+                print(f"{stock} is in stocklist")
+                # update stocklist with stock sold
+                found = True
+                break
+        if not found:
+            print(f"{stock} is not in stocklist and cannot be sold")
 
     def evaluate(self, company):
         # work out the value of the company somehow
         value = 0
         print(f"Value of {company} is {value}")
-
-
 
 def main():
     p = Portfolio()
@@ -77,8 +44,8 @@ def main():
     company = sys.argv[2]
     amount = sys.argv[3]
 
-    #stockList = [["SNPS", 40]]
-    stockList = []
+    stockList = [["SNPS", 40]]
+    #stockList = []
     
     match action:
         case "buy":
