@@ -1,5 +1,3 @@
-import sys
-
 class Portfolio:
 
     def buy(self, stockName, amount, stockList, accountBalance, stockValue):
@@ -21,6 +19,7 @@ class Portfolio:
 
                     foundStock = True
                     break
+                break
 
             if not foundStock:
                 print(f"{stockName} is not in stocklist")
@@ -39,14 +38,21 @@ class Portfolio:
         for stocks in stockList:
             if stockName in stocks:
                 print(f"{stockName} is in stocklist")
-                stockList.remove(stocks)
-                print(f"stock list is now {stockList}")
-
 
                 for stock in stockValue:
                     if stock[0] == stockName:
-                        accountBalance = accountBalance + ( stock[1] * int(amount) )
-                        print(f"accountBalance is now {accountBalance}")
+                        if int(amount) < stocks[1]:
+                            accountBalance = accountBalance + ( stock[1] * int(amount) )
+                            print(f"accountBalance is now {accountBalance}")
+
+                            stocks[1] = int(stocks[1]) - int(amount)
+                            print(f"you now have {stocks[1]} of {stocks[0]}")
+                        elif int(amount) == stocks[1]:
+                            accountBalance = accountBalance + ( stock[1] * int(amount) )
+                            print(f"accountBalance is now {accountBalance}")
+                            stockList.remove(stocks)
+                        else:
+                            print(f"you cannot sell {amount} of {stocks[0]}, as you only have {stocks[1]} {stocks[0]}")
 
                 foundStock = True
                 break
@@ -60,9 +66,6 @@ class Portfolio:
 
 def main():
     p = Portfolio()
-    action = sys.argv[1]
-    company = sys.argv[2]
-    amount = sys.argv[3]
     
     # the price of these stocks are currently fixed, in the future they should be dynamically scaled based on the evaluate function
     stockValue = [
@@ -79,16 +82,24 @@ def main():
     accountBalance = 100 # this could be changed into a list if one "user" can have multiple accounts
     
     # change this so that the user does not perform one action and then the program exists, update it so the user can buy, sell and evaluate multiple times in one running session
-    match action:
-        case "buy":
-            p.buy(company, amount, stockList, accountBalance, stockValue)
-        case "sell":
-            p.sell(company, amount, stockList, accountBalance, stockValue)
-        case "evaluate":
-            p.evaluate(company)
-        case _:
-            print("Not a valid action")
 
+    while True:
+        action = input("Action: ")
+        if action == "exit": break
+        company = input("Company: ")
+        if action == "evaluate": p.evaluate(company) ; continue
+        amount = input ("Amount: ")
+        match action:
+            case "buy":
+                p.buy(company, amount, stockList, accountBalance, stockValue)
+                continue 
+            case "sell":
+                p.sell(company, amount, stockList, accountBalance, stockValue)
+                continue
+            case _:
+                print("Not a valid action")
+        break
+    
     print(f"Stock list = {stockList}")
 
 
