@@ -1,5 +1,5 @@
 # Software Engineering Task 2 – Object-Oriented Application Project
-This README should be updated progressively throughout development and used as evidence of planning, implementation, testing and evaluation.
+This README should be updated progressively throughout development and used as evidence of planning, implementation, testing, and evaluation.
 
 ## Student Details
 
@@ -21,7 +21,7 @@ Trade Engine
 
 ## Problem Definition
 
-### What problem or need does this software address?
+### What Problem or Need Does This Software Address?
 Stock prices can be unpredictable, but Trade Engine collates data to assist in observing historical trends.
 
 ---
@@ -36,20 +36,20 @@ Examples:
 
 ## Purpose of the Program
 Explain what the program is intended to do.
-To predict fictional market trends, and subsequently when to buy, sell or hold stocks.
+To predict fictional market trends, and subsequently when to buy, sell, or hold stocks.
 
 ---
 
 # Software Development Planning
 
-## Software Development Lifecycle (SDLC)
+## Software Development Life Cycle (SDLC)
 
 Briefly explain how your project followed these stages:
 
 | SDLC Stage | Notes |
 |---|---|
-| Problem Identification | For economic and comerce students, who want to understand market trends, Trade Engine is a simple utility that presents historical data in a readable manner. |
-| Requirements Specification | |
+| Problem Identification | For economic and commerce students, who want to understand market trends, Trade Engine is a simple utility that presents historical data in a readable manner. |
+| Requirements Specification | A user must be able to buy and sell stocks of a company, these stocks must be added or deducted from their stock portfolio, and the appropriate funds added or subtracted from their bank accounts. The prices of these stocks must adapt in some way dynamically.|
 | Design | |
 | Development | |
 | Testing and Debugging | |
@@ -62,16 +62,12 @@ Briefly explain how your project followed these stages:
 ## Functional Requirements
 What must the program be able to do?
 
-Examples:
-- Store player scores
-- Calculate averages
-- Display menu options
-
 ### Requirements List
-- [ ]
-- [ ]
-- [ ]
-- [ ]
+- [ Take an action (buy, sell, or evaluate ]
+- [ Take a company for that action to apply ]
+- [ Take a quantity of purchased or sold stock ]
+- [ Receive an updated stock list after each action occurs ]
+- [ The program should run continuously and allow for multiple actions to occur ]
 
 ---
 
@@ -85,9 +81,9 @@ Examples:
 - Fast response time
 
 ### Requirements List
-- [ ]
-- [ ]
-- [ ]
+- [ The program must work every time it is run and complete all functional requirements consistently ]
+- [ The program should have a fast response time after each action is ran ]
+- [ Multiple users each with their own accounts and stock lists]
 
 ---
 
@@ -125,12 +121,12 @@ How does your program simplify complex processes for the user?
 
 ---
 
-### Inheritance (if used)
+### Inheritance (If Used)
 Describe any parent and child class relationships.
 
 ---
 
-### Polymorphism (if used)
+### Polymorphism (If Used)
 Describe any methods or behaviours that work differently in different classes.
 
 ---
@@ -232,7 +228,7 @@ Tick the testing methods used during development.
 Describe how you tested your program during development.
 
 Examples:
-- testing after each feature was added
+- Testing after each feature was added
 - checking outputs against expected results
 - debugging methods separately before integration
 
