@@ -3,12 +3,6 @@
 # if two or more of these sub-classes have the same method check_signal() and behave different with each call then this is polymorphism 
 
 # to include encapsulation in the project change this account list to be its own class with attributes such as name, balance and holdings that can only be changed through methods
-account = [
-    ["Alice", [40], [["SNPS", 40]] ],
-    ["Terry", [60], [] ],
-    ["Joy", [200], [] ]
-]
-
 class Account:
     def __init__(self, name, cash_balance, holdings):
          self.name = name
@@ -22,7 +16,7 @@ class Account:
         self.cash_balance -= amount
 
     def add_to_holdings(self, stock):
-        print(f"{stock}")
+        self.holdings.append(stock)
 
 
 
@@ -31,48 +25,44 @@ user_index = -1
 class Portfolio:
 
     def buy(self, stock_name, amount, stock_value, user_account):
-        #account_balance = user_account[1]
         account_balance = user_account.cash_balance
-        #stock_list = user_account[2]
         stock_list = user_account.holdings
 
         print(f"purchased {amount} stock")
         found_stock = False
         
         for stocks in stock_list:
-            print(f"sotcks = {stocks}")
             if stock_name in stocks:
                 print(f"{stock_name} is in stocklist")
-
                 for stock in stock_value:
                     if stock[0] == stock_name:
                         stock_price = stock[1] * int(amount)
-                        if account_balance < stock_price:
+                        if user_account.cash_balance < stock_price:
                             print(f"Your account_balance is only {account_balance} you can't buy {amount} stock with your current funds")
                         else:
-                            account_balance -= stock_price
+                            user_account.deduct_funds(stock_price)
                             stocks[1] = int(stocks[1]) + int(amount)
                             print(f"stock amount is now {stocks[1]}")
-                            print(f"account_balance is now {account_balance}")
-                    break
+                            print(f"account_balance is now {user_account.cash_balance}")
+                        break
                 found_stock = True
-                break
-            break
 
-        # need to change this logic to work with new class
         if not found_stock:
             print(f"{stock_name} is not in stocklist")
-            stock_list.append([stock_name, amount])
+            user_account.add_to_holdings([stock_name, amount])
+
             for stock in stock_value:
                 if stock[0] == stock_name:
-                    account_balance[0] -= ( stock[1] * int(amount) )
-                    print(f"account_balance is now {account_balance[0]}")
-
-                break
+                    if user_account.cash_balance < stock[1]:
+                        print(f"Your balance is only {user_account.cash_balance}, you can't afford this")
+                    else:
+                        user_account.deduct_funds( stock[1] * int(amount) )
+                        print(f"account_balance is now {user_account.cash_balance}")
+                        break
 
     def sell(self, stock_name, amount, stock_value, user_account):
-        account_balance = user_account[1]
-        stock_list = user_account[2]
+        account_balance = user_account.cash_balance
+        stock_list = user_account.holdings
 
         print(f"sold {amount} stock")
         found_stock = False
@@ -84,14 +74,15 @@ class Portfolio:
                 for stock in stock_value:
                     if stock[0] == stock_name:
                         if int(amount) < stocks[1]:
-                            account_balance[0] += ( stock[1] * int(amount) )
-                            print(f"account_balance is now {account_balance[0]}")
+                            user_account.add_funds( stock[1] * int(amount) )
+                            print(f"account_balance is now {user_account.cash_balance}")
 
                             stocks[1] = int(stocks[1]) - int(amount)
                             print(f"you now have {stocks[1]} of {stocks[0]}")
                         elif int(amount) == stocks[1]:
-                            account_balance[0] += ( stock[1] * int(amount) )
-                            print(f"account_balance is now {account_balance[0]}")
+                            user_account.add_funds( stock[1] * int(amount) )
+                            print(f"account_balance is now {account_balance}")
+
                             stock_list.remove(stocks)
                         else:
                             print(f"you cannot sell {amount} of {stocks[0]}, as you only have {stocks[1]} {stocks[0]}")
@@ -128,25 +119,12 @@ def main():
         if action == "evaluate": p.evaluate(company) ; continue
         amount = input ("Amount: ")
         
-        #i = 0
-        #for users in account:
-        #    print(f"user is {user} and users[0] is {users[0]}")
-        #    if user == users[0]:
-        #        user_index = i
-        #        stock_list = account[user_index][2]
-        #        break
-        #    i += 1
-
-        #if user_index < 0:
-        #    print(f"{user} is not an account holder")
-        
-        #else:
         match action:
             case "buy":
                 p.buy(company, amount, stock_value, User)
                 continue 
             case "sell":
-                p.sell(company, amount, stock_value, account[user_index])
+                p.sell(company, amount, stock_value, User)
                 continue
             case _:
                 print("Not a valid action")
