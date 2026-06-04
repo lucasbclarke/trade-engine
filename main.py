@@ -2,7 +2,8 @@
 # to incorporate inheritance, include MovingAverageStrategy, RSIStrategy, and RandomStrategy classes that inherit from the TradingStrategy class
 # if two or more of these sub-classes have the same method check_signal() and behave different with each call then this is polymorphism 
 
-# to include encapsulation in the project change this account list to be its own class with attributes such as name, balance and holdings that can only be changed through methods
+from abc import ABC, abstractmethod
+
 class Account:
     def __init__(self, name, cash_balance, holdings):
          self.name = name
@@ -19,8 +20,6 @@ class Account:
         self.holdings.append(stock)
 
 
-
-user_index = -1
 
 class Portfolio:
 
@@ -97,6 +96,39 @@ class Portfolio:
         value = 0
         print(f"Value of {company} is {value}")
 
+
+
+class TradingStragegy(ABC):
+    @abstractmethod
+    def check_signal(self):
+        pass
+    
+    def check_strategy(self, stock_value):
+        strategy = input("What strategy, random or threshold?")
+
+        match strategy:
+            case "random":
+                result = RandomStrategy().check_signal()
+            case "threshold":
+                result = ThresholdStrategy().check_signal(stock_value)
+        print(f"Strategy suggests: {result}")
+
+class RandomStrategy(TradingStragegy):
+    def check_signal(self):
+        import random
+        return random.choice(["buy", "sell", "hold"])
+
+class ThresholdStrategy(TradingStragegy):
+    def check_signal(self, stock_value):
+        if stock_value < 25:
+            return "buy"
+        elif stock_value > 50:
+            return "sell"
+        else:
+            return "hold"
+
+
+
 def main():
     p = Portfolio()
     User = Account("", 120, [["SNPS", 40]])
@@ -115,6 +147,7 @@ def main():
         User.name = input("Who are you?: ")
         action = input("Action: ")
         if action == "exit": break
+        if action == "strategy": check_strategy()
         company = input("Company: ")
         if action == "evaluate": p.evaluate(company) ; continue
         amount = input ("Amount: ")
