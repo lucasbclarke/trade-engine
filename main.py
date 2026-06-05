@@ -104,7 +104,7 @@ class TradingStragegy(ABC):
         pass
     
     def check_strategy(self, stock_value):
-        strategy = input("What strategy, random or threshold?")
+        strategy = input("What strategy, random or threshold?: ")
 
         match strategy:
             case "random":
@@ -142,12 +142,19 @@ def main():
             ["VCTR", 50], 
             ["AVEN", 60] 
     ]
-
+    
+    Ts = RandomStrategy()
     while True:
         User.name = input("Who are you?: ")
         action = input("Action: ")
         if action == "exit": break
-        if action == "strategy": check_strategy()
+        if action == "strategy":
+            company = input("Company: ")
+            for stock in stock_value:
+                if stock[0] == company:
+                    Ts.check_strategy(stock[1])
+            continue
+
         company = input("Company: ")
         if action == "evaluate": p.evaluate(company) ; continue
         amount = input ("Amount: ")
