@@ -1,0 +1,44 @@
+python main.py
+Who are you?: Alice
+Action: strategy
+Company: any
+What strategy, random or threshold?: threshold
+The chosen company is: VCTR
+Strategy suggests: hold
+Who are you?: Alice
+Action: strategy
+Company: any
+What strategy, random or threshold?: threshold
+The chosen company is: VCTR
+Strategy suggests: hold
+Who are you?: Alice
+Action: strategy
+Company: any
+What strategy, random or threshold?: threshold
+The chosen company is: VCTR
+Strategy suggests: hold
+Who are you?: Alice
+Action: strategy
+Company: SNPS
+What strategy, random or threshold?: threshold
+The chosen company is: SNPS
+Strategy suggests: buy
+Who are you?: Alice
+Action: strategy
+Company: HLIX
+What strategy, random or threshold?: threshold
+The chosen company is: HLIX
+Strategy suggests: buy
+Who are you?: Alice
+Action: strategy
+Company: any
+What strategy, random or threshold?: threshold
+The chosen company is: AEGS
+Strategy suggests: hold
+Who are you?: Alice
+Action: strategy
+Company: any
+What strategy, random or threshold?: threshold
+The chosen company is: AVEN
+Strategy suggests: sell
+Who are you?:
