@@ -1,0 +1,43 @@
+python main.py
+Who are you?: Alice
+Action: strategy
+Company: SNPS
+What strategy, random or threshold?: random
+Strategy suggests: hold
+Who are you?: Alice
+Action: strategy
+Company: SNPS
+What strategy, random or threshold?: random
+sold 6 stock
+SNPS is in stocklist
+account_balance is now 180
+you now have 34 of SNPS
+Strategy suggests: sell
+Who are you?: Alice
+Action: strategy
+Company: SNPS
+What strategy, random or threshold?: random
+sold 13 stock
+SNPS is in stocklist
+account_balance is now 310
+you now have 21 of SNPS
+Strategy suggests: sell
+Who are you?: Alice
+Action: strategy
+Company: SNPS
+What strategy, random or threshold?: random
+sold 5 stock
+SNPS is in stocklist
+account_balance is now 360
+you now have 16 of SNPS
+Strategy suggests: sell
+Who are you?: Alice
+Action: strategy
+Company: SNPS
+What strategy, random or threshold?: random
+purchased 22 stock
+SNPS is in stocklist
+stock amount is now 38
+account_balance is now 140
+Strategy suggests: buy
+Who are you?:

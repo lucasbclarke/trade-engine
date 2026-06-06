@@ -3,6 +3,7 @@
 # if two or more of these sub-classes have the same method check_signal() and behave different with each call then this is polymorphism 
 
 from abc import ABC, abstractmethod
+from random import randint
 
 class Account:
     def __init__(self, name, cash_balance, holdings):
@@ -103,14 +104,35 @@ class TradingStragegy(ABC):
     def check_signal(self):
         pass
     
-    def check_strategy(self, stock_value):
+    def check_strategy(self, company, stock_price, stock_value, User, portfolio):
         strategy = input("What strategy, random or threshold?: ")
 
+        print(f"The chosen company is: {company}")
         match strategy:
             case "random":
                 result = RandomStrategy().check_signal()
+
+                match result:
+                    case "buy":
+                        max_affordable = User.cash_balance // stock_price
+                        amount = randint(0, max_affordable) if max_affordable > 0 else 0
+                        portfolio.buy(company, amount, stock_value, User)
+
+                    case "sell":
+                        current_holdings = 0
+                        for holding in User.holdings:
+                            if holding[0] == company:
+                                current_holdings = holding[1]
+                        amount = randint(0, current_holdings) if current_holdings > 0 else 0
+                        portfolio.sell(company, amount, stock_value, User)
+
+                    case "hold": 
+                        pass
+                    case _:
+                        print("somehow there is another choice, which should not be possible")
+
             case "threshold":
-                result = ThresholdStrategy().check_signal(stock_value)
+                result = ThresholdStrategy().check_signal(stock_price)
         print(f"Strategy suggests: {result}")
 
 class RandomStrategy(TradingStragegy):
@@ -148,11 +170,17 @@ def main():
         User.name = input("Who are you?: ")
         action = input("Action: ")
         if action == "exit": break
+
         if action == "strategy":
             company = input("Company: ")
-            for stock in stock_value:
-                if stock[0] == company:
-                    Ts.check_strategy(stock[1])
+            if company == "any":
+                import random
+                random_stock = random.choice(stock_value)
+                Ts.check_strategy(random_stock[0], random_stock[1], stock_value, User, p)
+            else:
+                for stock in stock_value:
+                    if stock[0] == company:
+                        Ts.check_strategy(company, stock[1], stock_value, User, p)
             continue
 
         company = input("Company: ")
