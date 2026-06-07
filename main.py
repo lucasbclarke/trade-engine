@@ -101,6 +101,7 @@ class TradingStragegy(ABC):
         pass
     
     def check_strategy(self, company, stock_price, stock_value, User, portfolio):
+        result = ""
         strategy = input("What strategy, random or threshold?: ")
 
         print(f"The chosen company is: {company}")
@@ -127,9 +128,13 @@ class TradingStragegy(ABC):
                     case _:
                         print("somehow there is another choice, which should not be possible")
 
+                print(f"Strategy suggests: {result}")
             case "threshold":
                 result = ThresholdStrategy().check_signal(stock_price)
-        print(f"Strategy suggests: {result}")
+                print(f"Strategy suggests: {result}")
+            case _:
+                print("Not a valid strategy")
+
 
 class RandomStrategy(TradingStragegy):
     def check_signal(self):
@@ -177,6 +182,9 @@ def main():
                 for stock in stock_value:
                     if stock[0] == company:
                         Ts.check_strategy(company, stock[1], stock_value, User, p)
+                    else:
+                        print("Not a valid company")
+                        break
             continue
 
         company = input("Company: ")

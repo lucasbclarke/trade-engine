@@ -205,11 +205,9 @@ This section documents how the project was tested, debugged and evaluated throug
 
 Explain why testing is important for your project.
 
-Consider:
-- correctness
-- reliability
-- user experience
-- error prevention
+There are multiple reasons why testing is important for the quality of the project. Without testing the output of the program against the expected output, then there would be no way of
+knowing if the program logic is working correctly. This testing must occur multiple times and with varying cases to ensure that the code written is reliable, if the project is only
+tested once, then the code may be unreliable. The output must also be clear and readable to ensure that the user can interpret the information outputed.
 
 ---
 
@@ -219,23 +217,20 @@ Consider:
 
 Tick the testing methods used during development.
 
-- [ ] Normal / Typical Testing
-- [ ] Boundary Testing
-- [ ] Invalid Input Testing
+- [x] Normal / Typical Testing
+- [x] Boundary Testing
+- [x] Invalid Input Testing
 - [ ] User Testing
 - [ ] Method / Class Testing
-- [ ] Integration Testing
+- [x] Integration Testing
 
 ---
 
 ### Testing Process
 
 Describe how you tested your program during development.
-
-Examples:
-- Testing after each feature was added
-- checking outputs against expected results
-- debugging methods separately before integration
+During development I tested when each new method was introduced to ensure that it's logic behaved correctly. Included in this was the validation of the output of the program to ensure
+the right data was affected in each stage of execution.
 
 ---
 
