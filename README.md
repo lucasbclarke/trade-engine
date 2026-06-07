@@ -50,9 +50,9 @@ Briefly explain how your project followed these stages:
 |---|---|
 | Problem Identification | For economic and commerce students, who want to understand market trends, Trade Engine is a simple utility that presents historical data in a readable manner. |
 | Requirements Specification | A user must be able to buy and sell stocks of a company, these stocks must be added or deducted from their stock portfolio, and the appropriate funds added or subtracted from their bank accounts. The prices of these stocks must adapt in some way dynamically.|
-| Design | |
-| Development | |
-| Testing and Debugging | |
+| Design | There will be a portfolio class that has the buy sell and evaluate methods. A list of set companies will be specified with stock prices that vary. Each user will be able to purchase and sell stocks, and this will be tracked in their own personal stock list, along with their account balance. |
+| Development | The project has shifted from using command line arguments to determine the behaviour of the program, to running in a continuous loop which prompts the user before each action is taken. An account class has been added, which shares methods that are common to any user of the system.|
+| Testing and Debugging | When implementing the different trading strategies, the output of the program needed to be tested to ensure that the strategy was working as intended. For example when the 'random' strategy was implemented I had to ensure that the output of the choices was "random". This did not seem to be the case in one instance, where after specifying any company with the threshold strategy, the program chose to hold the VCTR stock three times in a row, however it did choose another option the fourth time. |
 | Evaluation | |
 
 ---
@@ -91,11 +91,12 @@ Examples:
 
 ## Classes and Responsibilities
 
-| Class Name | Purpose / Responsibility |
-|---|---|
-| | |
-| | |
-| | |
+| Class Name        | Purpose / Responsibility                                                                                           |
+| Account           | Holds methods and variables that apply to a user                                                                   |
+| Portfolio         | Contains the buy, sell and evaluate methods that is called by each user                                            |
+| TradingStrategy   | Defines the check_signal() and check_strategy() methods, where check_strategy() then runs the appropriate subclass |
+| RandomStrategy    | Reimplements the check_signal() method to choose between buying, selling, or holding                               |
+| ThresholdStrategy | Chooses whether to buy, sell, or hold, based up the value of the stock of any listed company                       |
 
 ---
 
@@ -118,16 +119,19 @@ How does your program group data and behaviour together?
 
 ### Abstraction
 How does your program simplify complex processes for the user?
+Logic that is frequent throughout different parts of the program are grouped into methods that make it easier to call. These methods are then grouped into classes where need be, to group common tasks together.
 
 ---
 
 ### Inheritance (If Used)
 Describe any parent and child class relationships.
+The TradingStrategy class outlines logic based upon which strategy is called by the user. This then calls either the RandomStrategy or ThresholdStrategy subclasses.
 
 ---
 
 ### Polymorphism (If Used)
 Describe any methods or behaviours that work differently in different classes.
+In the RandomStrategy class, the check_signal() method randomly selects between the choices of buy, sell, and hold. Whereas in the ThresholdStrategy class, buy is selected if the value of the selected stock is less than 25, hold is selected if the value is between 25 and 50, and sell is chosen if the value is above 50.
 
 ---
 
@@ -137,10 +141,12 @@ Describe any methods or behaviours that work differently in different classes.
 
 Describe the major steps of your program.
 
-1. 
-2. 
-3. 
-4. 
+1. Ask who the user is
+2. Ask for an action (either buy, sell, evaluate, strategy, or exit)
+3. Ask for a company the action is going to apply to
+4. If the action was not "strategy" then ask for an amount, then complete the action
+5. If the action was "strategy" ask for which strategy, then execute the code for that strategy
+6. Repeat until the user enters "exit" as the action
 
 ---
 
@@ -167,23 +173,22 @@ Add your own algorithms below.
 
 ## Features Completed
 
-- [ ]
-- [ ]
-- [ ]
+- [ Buy and sell methods implemented ]
+- [ Account class created ]
+- [ Random and threshold strategies integrated ]
+- [ Finished making the program run continuously until the user asks to exit ]
 
 ---
 
 ## Features Partially Completed
 
-- [ ]
-- [ ]
+- [ Stub made for evaluate method, but need to implement fully ]
 
 ---
 
 ## Features Planned but Not Completed
 
-- [ ]
-- [ ]
+- [ Change the price of each stock dynamically based on some external factor ]
 
 ---
 

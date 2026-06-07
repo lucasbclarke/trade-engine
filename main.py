@@ -1,7 +1,3 @@
-# include an abstract TradingStrategy class with an abstract check_signal() method --- Ask claude to go into more detail about this
-# to incorporate inheritance, include MovingAverageStrategy, RSIStrategy, and RandomStrategy classes that inherit from the TradingStrategy class
-# if two or more of these sub-classes have the same method check_signal() and behave different with each call then this is polymorphism 
-
 from abc import ABC, abstractmethod
 from random import randint
 
