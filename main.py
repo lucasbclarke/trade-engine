@@ -8,14 +8,13 @@ class Account:
          self.holdings = holdings
          
     def add_funds(self, amount):
-        self.cash_balance += amount
+        self.cash_balance = round(self.cash_balance + amount, 2)
 
     def deduct_funds(self, amount):
-        self.cash_balance -= amount
+        self.cash_balance = round(self.cash_balance - amount, 2)
 
     def add_to_holdings(self, stock):
         self.holdings.append(stock)
-
 
 
 class Portfolio:
@@ -32,6 +31,9 @@ class Portfolio:
                 print(f"{stock_name} is in stocklist")
                 for stock in stock_value:
                     if stock[0] == stock_name:
+                        #the price of the stock rises when it is bought
+                        stock[1] = round(stock[1] * (1 + 0.02 * int(amount)), 2)
+
                         stock_price = stock[1] * int(amount)
                         if user_account.cash_balance < stock_price:
                             print(f"Your account_balance is only {account_balance} you can't buy {amount} stock with your current funds")
@@ -45,7 +47,7 @@ class Portfolio:
 
         if not found_stock:
             print(f"{stock_name} is not in stocklist")
-            user_account.add_to_holdings([stock_name, amount])
+            user_account.add_to_holdings([stock_name, int(amount)])
 
             for stock in stock_value:
                 if stock[0] == stock_name:
@@ -69,6 +71,10 @@ class Portfolio:
 
                 for stock in stock_value:
                     if stock[0] == stock_name:
+                        #the price of the stock falls when it is sold
+                        stock[1] = round(stock[1] * (1 - 0.02 * int(amount)), 2)
+
+
                         if int(amount) < stocks[1]:
                             user_account.add_funds( stock[1] * int(amount) )
                             print(f"account_balance is now {user_account.cash_balance}")
@@ -88,12 +94,11 @@ class Portfolio:
         if not found_stock:
             print(f"{stock_name} is not in stocklist and cannot be sold")
 
-    def evaluate(self, company):
-        # work out the value of the company somehow
-        value = 0
-        print(f"Value of {company} is {value}")
-
-
+    def update_prices(self, stock_value):
+        import random
+        for stock in stock_value:
+            change = random.uniform(-0.05, 0.05)
+            stock[1] = round(stock[1] * (1 + change), 2)
 
 class TradingStragegy(ABC):
     @abstractmethod
@@ -130,7 +135,7 @@ class TradingStragegy(ABC):
 
                 print(f"Strategy suggests: {result}")
             case "threshold":
-                result = ThresholdStrategy().check_signal(stock_price)
+                result = ThresholdStrategy().check_signal(stock_price, company, User)
                 print(f"Strategy suggests: {result}")
             case _:
                 print("Not a valid strategy")
@@ -142,13 +147,27 @@ class RandomStrategy(TradingStragegy):
         return random.choice(["buy", "sell", "hold"])
 
 class ThresholdStrategy(TradingStragegy):
-    def check_signal(self, stock_value):
+    def check_signal(self, stock_value, stock_name, user_account):
         if stock_value < 25:
-            return "buy"
+            price_signal = "buy"
         elif stock_value > 50:
-            return "sell"
+            price_signal = "sell"
         else:
-            return "hold"
+            price_signal = "hold"
+
+        if price_signal == "buy":
+            if user_account.cash_balance < stock_value:
+                return "hold"
+
+        if price_signal == "sell":
+            found_stock = False
+            for holding in user_account.holdings:
+                if holding[0] == stock_name:
+                    found_stock = True
+            if not found_stock:
+                return "hold"
+
+        return price_signal
 
 
 
@@ -167,10 +186,35 @@ def main():
     ]
     
     Ts = RandomStrategy()
+    accounts = {}
     while True:
-        User.name = input("Who are you?: ")
+        name = input("Who are you?: ")
+        if name not in accounts:
+            accounts[name] = Account(name, 120, []) 
+        User = accounts[name]
+
+
         action = input("Action: ")
         if action == "exit": break
+
+        if action == "print stock":
+            print(f"{User.name} | Balance: {User.cash_balance}")
+            print("Holdings:")
+            for holding in User.holdings:
+                for stock in stock_value:
+                    if stock[0] == holding[0]:
+                        total_value = round(stock[1] * holding[1], 2)
+                        print(f"  {holding[0]}: {holding[1]} shares @ {stock[1]} = {total_value}")
+            print("Market:")
+            for stock in stock_value:
+                owned = False
+                for holding in User.holdings:
+                    if holding[0] == stock[0]:
+                        owned = True
+                if not owned:
+                    print(f"  {stock[0]}: {stock[1]}")
+            print()
+            continue
 
         if action == "strategy":
             company = input("Company: ")
@@ -179,24 +223,37 @@ def main():
                 random_stock = random.choice(stock_value)
                 Ts.check_strategy(random_stock[0], random_stock[1], stock_value, User, p)
             else:
+                found_company = False
                 for stock in stock_value:
                     if stock[0] == company:
                         Ts.check_strategy(company, stock[1], stock_value, User, p)
-                    else:
-                        print("Not a valid company")
+                        found_company = True
                         break
+                if not found_company:
+                    print("Not a valid company")
+            p.update_prices(stock_value)
+            print()
             continue
 
         company = input("Company: ")
-        if action == "evaluate": p.evaluate(company) ; continue
+        if action == "evaluate":
+            p.evaluate(company) 
+            p.update_prices(stock_value)
+            print()
+            continue
+
         amount = input ("Amount: ")
         
         match action:
             case "buy":
                 p.buy(company, amount, stock_value, User)
+                p.update_prices(stock_value)
+                print()
                 continue 
             case "sell":
                 p.sell(company, amount, stock_value, User)
+                p.update_prices(stock_value)
+                print()
                 continue
             case _:
                 print("Not a valid action")
