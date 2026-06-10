@@ -188,6 +188,11 @@ def main():
     accounts = {}
     while True:
         name = input("Who are you?: ")
+
+        if name == "":
+            print("You must enter a name")
+            continue
+
         if name not in accounts:
             accounts[name] = Account(name, 120, []) 
         User = accounts[name]

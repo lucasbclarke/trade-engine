@@ -159,7 +159,6 @@ Describe the major steps of your program.
 ## Pseudocode / Algorithms
 
 ### Example Algorithm
-# look at main program flow and just convert to psudo code, and expand upon the main program flow to include what the strategies actually do.
 ```text
 START
 INPUT user choice
@@ -169,9 +168,47 @@ ELSE
     display error
 END IF
 STOP
-```
 
-Add your own algorithms below.
+START
+INPUT user name
+IF name NOT in accounts
+        SET accounts = accounts + name
+
+INPUT user action
+IF action is print stock
+    print user stocks
+    print market stocks
+
+IF action is strategy
+    INPUT user company
+    IF company is any
+        execute check strategy
+    ELSE
+        IF company is in companies
+            execute check strategy
+        ELSE
+            display error
+        update prices
+
+INPUT user company
+IF action is evaluate
+    evaluate company
+    update prices
+
+INPUT user amount
+IF amount less than 0
+    display error
+
+MATCH action
+    CASE buy
+        buy stock
+        update prices
+    CASE sell
+        sell stock
+        update prices
+    CASE _:
+        display error
+```
 
 ---
 
@@ -260,17 +297,14 @@ the right data was affected in each stage of execution.
 
 ### Boundary and Invalid Data Testing
 
-# boundary test buying negative stock
-# invalid test ; balnk name
-# edge case ; Outline how I making sure that I can only purhcase / sell the amount of stock that is allowed for my acccount balance ; line 159 
 | Test Case | Input | Why This Test Was Important | Result |
 |---|---|---|---|
 | Boundary Test | Buy 0 stocks | To ensure the program handles the zero quantity | Pass |
 | Boundary Test | Buy 1 stock | Minimum valid quantity | Pass |
-| Invalid Test | Enter negative stock amount | Program should reject invalid purchase | Pass (incorrect) |
-| Invalid Test | | | |
-| Edge Case | | | |
-| Edge Case | | | |
+| Invalid Test | Enter negative stock amount | Program should reject invalid purchase | Handled with message |
+| Invalid Test | Empty name input | Program should prompt again or reject | Handled with message |
+| Edge Case | Sell more stock than owned | Program should prevent selling more than owned | Handled with message |
+| Edge Case | Buy stock with insufficient funds | Program should prevent purchase | Handled with message |
 
 ---
 
