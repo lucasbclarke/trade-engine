@@ -53,7 +53,9 @@ Briefly explain how your project followed these stages:
 | Design | There will be a portfolio class that has the buy sell and evaluate methods. A list of set companies will be specified with stock prices that vary. Each user will be able to purchase and sell stocks, and this will be tracked in their own personal stock list, along with their account balance. |
 | Development | The project has shifted from using command line arguments to determine the behaviour of the program, to running in a continuous loop which prompts the user before each action is taken. An account class has been added, which shares methods that are common to any user of the system.|
 | Testing and Debugging | When implementing the different trading strategies, the output of the program needed to be tested to ensure that the strategy was working as intended. For example when the 'random' strategy was implemented I had to ensure that the output of the choices was "random". This did not seem to be the case in one instance, where after specifying any company with the threshold strategy, the program chose to hold the VCTR stock three times in a row, however it did choose another option the fourth time. |
-| Evaluation | |
+| Evaluation | Trade Engine met its primary objectives by allowing users to manage stock portfolios, account balances, and trading strategies. Testing confirmed that the core functionality worked reliably. Although some planned features, the project successfully demonstrated the use of object-oriented design and fulfilled most requirements.
+ |
+
 
 ---
 
@@ -186,13 +188,17 @@ Add your own algorithms below.
 
 ## Features Partially Completed
 
-- [ Stub made for evaluate method, but need to implement fully ]
-
+ - [ Stock prices fluctuate dynamically, but the fluctuations are randomly generated rather than based on realistic market conditions ]
 ---
 
 ## Features Planned but Not Completed
 
 - [ Change the price of each stock dynamically based on some external factor ]
+- [ Save user accounts and portfolios between program runs ]
+- [ Use real or simulated market data instead of random price changes ]
+- [ Add additional trading strategies ]
+- [ Create a graphical user interface ]
+- [ Improve error handling and validation for all user inputs ]
 
 ---
 
@@ -246,11 +252,11 @@ the right data was affected in each stage of execution.
 
 | Test Case | Input / Action | Expected Result | Actual Result | Pass / Fail |
 |---|---|---|---|---|
-| 1 | Name | | | |
-| 2 | Action | | | |
-| 3 | Company | | | |
-| 4 | | | | |
-| 5 | | | | |
+| 1 | Name: "Alice" | New user created with 120 account balance | As expected | Pass |
+| 2 | Action: "buy", Company: "SNPS", Amount: 10 | 120 balance reduced by 10 × stock price, holdings updated to 50 SNPS | As expected | Pass |
+| 3 | Action: "sell", Company: "SNPS", Amount: 5 | around 50 added to balance depending on stock price, holdings reduced to 45 SNPS | As expected | Pass |
+| 4 | Action: "evaluate", Company: "HLIX" | Stock evaluation output displayed correctly | As expected | Pass |
+| 5 | Action: "strategy", Company: "any", Strategy: "random" | Random strategy chooses buy/sell/hold and updates holdings accordingly | As expected | Pass |
 
 ---
 
