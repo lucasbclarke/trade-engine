@@ -214,5 +214,8 @@ marimo/_static/
 marimo/_lsp/
 __marimo__/
 
+# Assessment files
+assessment_information/
+
 # Streamlit
 .streamlit/secrets.toml
