@@ -54,7 +54,7 @@ Briefly explain how your project followed these stages:
 | Development | The project has shifted from using command line arguments to determine the behaviour of the program, to running in a continuous loop which prompts the user before each action is taken. An account class has been added, which shares methods that are common to any user of the system.|
 | Testing and Debugging | When implementing the different trading strategies, the output of the program needed to be tested to ensure that the strategy was working as intended. For example when the 'random' strategy was implemented I had to ensure that the output of the choices was "random". This did not seem to be the case in one instance, where after specifying any company with the threshold strategy, the program chose to hold the VCTR stock three times in a row, however it did choose another option the fourth time. |
 | Evaluation | Trade Engine met its primary objectives by allowing users to manage stock portfolios, account balances, and trading strategies. Testing confirmed that the core functionality worked reliably. Although some planned features, the project successfully demonstrated the use of object-oriented design and fulfilled most requirements.
- |
+
 
 
 ---
