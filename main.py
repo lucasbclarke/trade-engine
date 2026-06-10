@@ -175,7 +175,6 @@ def main():
     p = Portfolio()
     User = Account("", 120, [["SNPS", 40]])
     
-    # the price of these stocks are currently fixed, in the future they should be dynamically scaled based on the evaluate function
     stock_value = [
             ["SNPS", 10],
             ["HLIX", 20],

@@ -92,6 +92,7 @@ Examples:
 ## Classes and Responsibilities
 
 | Class Name        | Purpose / Responsibility                                                                                           |
+| ------------------|--------------------------------------------------------------------------------------------------------------------|
 | Account           | Holds methods and variables that apply to a user                                                                   |
 | Portfolio         | Contains the buy, sell and evaluate methods that is called by each user                                            |
 | TradingStrategy   | Defines the check_signal() and check_strategy() methods, where check_strategy() then runs the appropriate subclass |
@@ -103,17 +104,20 @@ Examples:
 ## Objects
 List examples of objects that will be created from your classes.
 
-| Object | Class |
+| Class | Object |
 |---|---|
-| | |
-| | |
-
+| Account| User|
+| Portfolio | p |
+| TradingStrategy | RandomStrategy, ThresholdStrategy
+| RandomStrategy | result, Ts
+| ThresholdStrategy | result |
 ---
 
 ## OOP Principles Used
 
 ### Encapsulation
 How does your program group data and behaviour together?
+Portofilo tracks data, trading strategy enacts logic based on user input, main while true loop is the public interface that interacts with users.
 
 ---
 
@@ -153,7 +157,7 @@ Describe the major steps of your program.
 ## Pseudocode / Algorithms
 
 ### Example Algorithm
-
+# look at main program flow and just convert to psudo code, and expand upon the main program flow to include what the strategies actually do.
 ```text
 START
 INPUT user choice
@@ -238,11 +242,13 @@ the right data was affected in each stage of execution.
 
 ### Functional Testing
 
+#what inputs is it accepting. (numbers where there should be strings, strings where there should be numbers
+
 | Test Case | Input / Action | Expected Result | Actual Result | Pass / Fail |
 |---|---|---|---|---|
-| 1 | | | | |
-| 2 | | | | |
-| 3 | | | | |
+| 1 | Name | | | |
+| 2 | Action | | | |
+| 3 | Company | | | |
 | 4 | | | | |
 | 5 | | | | |
 
@@ -250,6 +256,9 @@ the right data was affected in each stage of execution.
 
 ### Boundary and Invalid Data Testing
 
+# boundary test buying negative stock
+# invalid test ; balnk name
+# edge case ; Outline how I making sure that I can only purhcase / sell the amount of stock that is allowed for my acccount balance ; line 159 
 | Test Case | Input | Why This Test Was Important | Result |
 |---|---|---|---|
 | Boundary Test | | | |
@@ -264,9 +273,9 @@ Record problems found during testing and how they were fixed.
 
 | Issue Found | Cause | Solution Applied |
 |---|---|---|
-| | | |
-| | | |
-| | | |
+| No new users could be created | All users were defined in the program explicitly  | The users are now based on user input |
+| When purchasing or selling a stock, no amount of money was exchanged | There was no definition of a bank account | A cash balance was implemented, which gets added to or subtracted from when buying or selling a stock |
+| The user could not complete more than one operation before the program exited | The actions were accepted through command line arguments | The program now uses the python input() function to get the requested action from the user |
 
 ---
 
@@ -276,10 +285,7 @@ Record problems found during testing and how they were fixed.
 
 How effectively does your program meet the intended requirements?
 
-Consider:
-- features implemented
-- correctness of outputs
-- reliability of the program
+The program allows users to buy and sell stocks of a variety of companies. This adds or removes the stock from their stock list, and also adds and deducts from the users cash balance. The value of stocks fluctuate to imitate a real stock market, as well as when a user buys and sells a stock. The program accurately displays the information of the stock that the user holds, and the stock the user can purchase. Each operation behaves the same way each time it is ran regardless of which stock is selected.
 
 ---
 
@@ -287,23 +293,22 @@ Consider:
 
 Evaluate the effectiveness of your object-oriented design.
 
-Consider:
-- class structure
-- organisation of methods
-- encapsulation
-- maintainability
+Trade Engine effectively demonstrates object-oriented principles:
+Classes are separated by their function where Account handles user funds and holdings, Portfolio handles transactions, and TradingStrategy with RandomStrategy and ThresholdStrategy subclasses handle decision-making logic.
+Data and it's related methods are grouped inside of classes. User balances and holdings are encapsulated Account, trading actions in Portfolio.
+RandomStrategy and ThresholdStrategy inherit from the abstract base TradingStrategy, and reuse the check_strategy method template.
+The check_signal method behaves differently depending on the strategy class, demonstrating runtime polymorphism.
+Methods are modular and logically organized, making the code easier to extend (e.g., adding new strategies).
 
 ---
 
 ## Readability and Code Quality
 
-Evaluate the readability of your code.
-
-Consider:
-- naming conventions
-- comments
-- formatting
-- organisation
+The code is for the most part, readable and understandable:
+Class names are clear and descriptive (Account, Portfolio, RandomStrategy), but some variable names could be improved (such as the similarity between stock_price and stock_value).
+There are a few useful inline comments explaining complex logic like price adjustments during buy/sell operations.
+Code is indented and organised consistently, though there are some long methods (like buy and sell) that could be broken into smaller functions for clarity.
+The code follows logical flow, separating classes from the main program loop, making it easier to navigate and debug.
 
 ---
 
@@ -311,10 +316,12 @@ Consider:
 
 How effective was your testing process?
 
-Consider:
-- whether errors were identified
-- whether bugs were fixed successfully
-- whether important cases were tested
+The testing process is reasonable but could be improved:
+
+Testing caught issues with stock purchase limits, cash balance updates, and the creation of users.
+Bugs such as inability to create new users and missing fund adjustments were successfully resolved.
+Functional and boundary testing were considered, but more systematic edge case testing could increase consumer confidence.
+Classes were tested together to ensure the program logic works correctly, such as Portfolio methods affecting Account balances accurately.
 
 ---
 
@@ -324,11 +331,22 @@ Consider:
 
 Describe difficulties experienced during development and testing.
 
+During development and testing, several challenges arose:
+Implementing fluctuating stock prices required careful handling to ensure purchases and sales correctly updated both user holdings and stock values.
+Ensuring RandomStrategy and ThresholdStrategy worked correctly with Portfolio and Account methods needed testing and debugging, particularly for edge cases like insufficient funds or attempting to sell more stock than owned.
+Handling unexpected or invalid inputs (like non-numeric amounts or nonexistent company names) was challenging.
+Some methods, like buy and sell, became long and complex, making them harder to read and adapt.
+
 ---
 
 ## What You Learned
 
 Explain what skills or concepts you improved during this task.
+
+I Implemented classes, inheritance, polymorphism, and encapsulation effectively to structure the program logically, which are all components of Object Oriented Programming.
+I also learned to translate real-world actions (buy/sell stocks) into program logic, and to implement different trading strategies.
+My ability in testing for functional correctness, boundary cases, and error handling, has also improved over the course of this project.
+Throughout the development of Trade Engine, as it is much more of a complex project than what I have made in the past, I have had to break complex methods into smaller, manageable functions and documenting convoluted logic with comments.
 
 ---
 
@@ -336,10 +354,21 @@ Explain what skills or concepts you improved during this task.
 
 If you continued this project, what would you improve or add?
 
+If continuing the project I could make the following enhancements:
+
+I could implement more sophisticated algorithms for stock price changes that better reflect real markets.
+Trading strategies of greater complexity and realism beyond random and threshold-based logic, could be introduced.
+Adding stricter input handling and improving the amount of error messages help to reduce invalid user actions.
+I could also store user accounts and holdings in a file or database to retain their data between sessions.
+
 ---
 
 # Final Statement
 
 Summarise the overall success of your project.
+
+Trade Engine successfully allows multiple users to buy and sell stocks, maintains cash balances and stock holdings, and implements trading strategies using a clear object-oriented design.
+Core functionality works reliably, and testing helped identify and fix key issues.
+The project met its main objectives and provided valuable experience in OOP, program design, and debugging, with opportunities for future enhancements such as improved input validation and persistent storage.
 
 ---
