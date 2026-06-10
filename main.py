@@ -242,6 +242,11 @@ def main():
             continue
 
         amount = input ("Amount: ")
+
+        if int(amount) < 0:
+            print("Amount must be greater than 0")
+            continue
+
         
         match action:
             case "buy":

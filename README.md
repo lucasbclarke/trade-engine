@@ -248,8 +248,6 @@ the right data was affected in each stage of execution.
 
 ### Functional Testing
 
-#what inputs is it accepting. (numbers where there should be strings, strings where there should be numbers
-
 | Test Case | Input / Action | Expected Result | Actual Result | Pass / Fail |
 |---|---|---|---|---|
 | 1 | Name: "Alice" | New user created with 120 account balance | As expected | Pass |
@@ -267,8 +265,11 @@ the right data was affected in each stage of execution.
 # edge case ; Outline how I making sure that I can only purhcase / sell the amount of stock that is allowed for my acccount balance ; line 159 
 | Test Case | Input | Why This Test Was Important | Result |
 |---|---|---|---|
-| Boundary Test | | | |
+| Boundary Test | Buy 0 stocks | To ensure the program handles the zero quantity | Pass |
+| Boundary Test | Buy 1 stock | Minimum valid quantity | Pass |
+| Invalid Test | Enter negative stock amount | Program should reject invalid purchase | Pass (incorrect) |
 | Invalid Test | | | |
+| Edge Case | | | |
 | Edge Case | | | |
 
 ---
